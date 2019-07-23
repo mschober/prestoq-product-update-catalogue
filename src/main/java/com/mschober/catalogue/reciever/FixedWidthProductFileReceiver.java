@@ -1,9 +1,20 @@
 package com.mschober.catalogue.reciever;
 
-import com.mschober.catalogue.data.ProductEvent;
-import com.mschober.catalogue.queue.SingleThreadedBlockingQueue;
+
+import com.mschober.catalogue.queue.EventProcessingQueue;
+
+import java.io.IOException;
 
 public class FixedWidthProductFileReceiver implements ProductReceiver {
+    private final DirectoryWatcher directoryWatcher;
 
-    // starts the file watcher
+    public FixedWidthProductFileReceiver(EventProcessingQueue productReceiverQueue) {
+        this.directoryWatcher = new DirectoryWatcher(productReceiverQueue);
+    }
+
+    @Override
+    public void start() {
+        System.out.println("Starting fixed width file receiver...");
+        this.directoryWatcher.start();
+    }
 }

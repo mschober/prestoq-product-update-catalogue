@@ -14,7 +14,7 @@ public class DirectoryWatcher implements ProductReceiver {
 // https://www.baeldung.com/java-nio2-watchservice
 //
 
-    public DirectoryWatcher(EventProcessingQueue queue) {
+    DirectoryWatcher(EventProcessingQueue queue) {
         if (queue != null) {
             this.queue = queue;
         }
@@ -25,25 +25,31 @@ public class DirectoryWatcher implements ProductReceiver {
 
     }
 
-    public void start() throws InterruptedException, IOException {
+    public void start() {
         System.out.println("Starting directory scanner...");
-        WatchService watchService
-                = FileSystems.getDefault().newWatchService();
+        try {
+            WatchService watchService
+                    = FileSystems.getDefault().newWatchService();
 
-        Path path = Paths.get("/tmp/productchanges");
+            Path path = Paths.get("/tmp/productchanges");
 
-        path.register(
-                watchService,
-                StandardWatchEventKinds.ENTRY_CREATE,
-                StandardWatchEventKinds.ENTRY_DELETE,
-                StandardWatchEventKinds.ENTRY_MODIFY);
+            path.register(
+                    watchService,
+                    StandardWatchEventKinds.ENTRY_CREATE,
+                    StandardWatchEventKinds.ENTRY_DELETE,
+                    StandardWatchEventKinds.ENTRY_MODIFY);
 
-        WatchKey key;
-        while ((key = watchService.take()) != null) {
-            for (WatchEvent<?> event : key.pollEvents()) {
-                putFileProductEvent(event);
+            WatchKey key;
+            while ((key = watchService.take()) != null) {
+                for (WatchEvent<?> event : key.pollEvents()) {
+                    putFileProductEvent(event);
+                }
+                key.reset();
             }
-            key.reset();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 

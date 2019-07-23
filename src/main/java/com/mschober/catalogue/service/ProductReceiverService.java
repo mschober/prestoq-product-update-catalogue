@@ -1,27 +1,26 @@
 package com.mschober.catalogue.service;
 
 import com.mschober.catalogue.queue.EventProcessingQueue;
-import com.mschober.catalogue.reciever.DirectoryWatcher;
+import com.mschober.catalogue.reciever.FixedWidthProductFileReceiver;
+import com.mschober.catalogue.reciever.ProductReceiver;
 
-import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 public class ProductReceiverService {
 
     private final EventProcessingQueue productReceiverQueue = null;
-    private final DirectoryWatcher directoryWatcher;
+    private final List<ProductReceiver> receivers;
 
     public ProductReceiverService() {
-        this.directoryWatcher = new DirectoryWatcher(productReceiverQueue);
+        this.receivers = new LinkedList<>();
+        // TODO: Dip Inj? or configuration
+        this.receivers.add(new FixedWidthProductFileReceiver(productReceiverQueue));
     }
 
     public void start() {
-        System.out.println("Starting receiver...");
-        try {
-            this.directoryWatcher.start();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        for(ProductReceiver r : this.receivers) {
+            r.start();
         }
     }
 }
