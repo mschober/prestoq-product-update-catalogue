@@ -1,13 +1,18 @@
 package com.mschober.catalogue;
 
-import com.mschober.catalogue.service.ProductUpdateCatalogueService;
+import com.mschober.catalogue.queue.SingleThreadedBlockingQueue;
+import com.mschober.catalogue.service.ProductReceiverService;
 
 public class ProductUpdateCatalogueRunner {
 
     public static void main(String[] args) {
-        ProductUpdateCatalogueService catalogueService = new ProductUpdateCatalogueService();
+        startServices();
         System.out.println("starting...");
-        catalogueService.start();
+    }
+
+    private static void startServices() {
+        ProductReceiverService receiverService = new ProductReceiverService();
+        receiverService.start();
     }
 
 }
