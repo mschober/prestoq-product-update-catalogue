@@ -1,8 +1,8 @@
 package com.mschober.catalogue.service;
 
 import com.mschober.catalogue.queue.EventProcessingQueue;
-import com.mschober.catalogue.reciever.FixedWidthProductFileReceiver;
 import com.mschober.catalogue.reciever.ProductReceiver;
+import com.mschober.catalogue.reciever.ReceiverFactor;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -15,7 +15,7 @@ public class ProductReceiverService {
     public ProductReceiverService() {
         this.receivers = new LinkedList<>();
         // TODO: Dip Inj? or configuration
-        this.receivers.add(new FixedWidthProductFileReceiver(productReceiverQueue));
+        this.receivers.add(ReceiverFactor.createReceiver(productReceiverQueue, "file"));
     }
 
     public void start() {

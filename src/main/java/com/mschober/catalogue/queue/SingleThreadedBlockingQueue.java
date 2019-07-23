@@ -10,12 +10,12 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class SingleThreadedBlockingQueue implements EventProcessingQueue {
 
 
-    private static SingleThreadedBlockingQueue instance = null;
     private static BlockingQueue<ProductEvent> eventQueue = null;
 
 //    private SingleThreadedBlockingQueue() {}
 
-//    public static SingleThreadedBlockingQueue getInstance() {
+//    // TODO how should this be handled?
+//    public static EventProcessingQueue getInstance() {
 //        if (instance == null) {
 //            instance = new SingleThreadedBlockingQueue();
 //        }
@@ -25,12 +25,11 @@ public class SingleThreadedBlockingQueue implements EventProcessingQueue {
     private void initialize() {
         if (eventQueue == null) {
             eventQueue = new LinkedBlockingQueue<>();
-            EventProcessor eventProcessor = new EventProcessor();
-            eventProcessor.start();
         }
     }
 
 
+    @Override
     public void putEventInQueue(ProductEvent eventData) {
         try {
             initialize();
@@ -40,18 +39,8 @@ public class SingleThreadedBlockingQueue implements EventProcessingQueue {
         }
     }
 
-    class EventProcessor extends Thread {
-        @Override
-        public void run() {
-            for (;;) {
-                ProductEvent eventData = null;
-                try {
-                    eventData = eventQueue.take();
-                    System.out.println("Process Event Data : Type : " + eventData.getEventContext());
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
-            }
-        }
+    @Override
+    public ProductEvent take() throws InterruptedException {
+        return eventQueue.take();
     }
 }

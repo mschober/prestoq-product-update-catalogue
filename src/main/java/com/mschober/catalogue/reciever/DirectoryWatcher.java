@@ -15,14 +15,7 @@ public class DirectoryWatcher implements ProductReceiver {
 //
 
     DirectoryWatcher(EventProcessingQueue queue) {
-        if (queue != null) {
-            this.queue = queue;
-        }
-        else {
-            //TODO should this class own this? Dep. Inj?
-            this.queue = new SingleThreadedBlockingQueue();
-        }
-
+        this.queue = queue;
     }
 
     public void start() {
