@@ -9,13 +9,12 @@ import java.util.List;
 
 public class ProductReceiverService {
 
-    private final EventProcessingQueue productReceiverQueue = null;
     private final List<ProductReceiver> receivers;
 
-    public ProductReceiverService() {
+    public ProductReceiverService(EventProcessingQueue receivingQueue, EventProcessingQueue sendingQueue) {
         this.receivers = new LinkedList<>();
         // TODO: Dip Inj? or configuration
-        this.receivers.add(ReceiverFactor.createReceiver(productReceiverQueue, "file"));
+        this.receivers.add(ReceiverFactor.createReceiver(receivingQueue, sendingQueue, "file"));
     }
 
     public void start() {

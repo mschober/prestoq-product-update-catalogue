@@ -3,9 +3,9 @@ package com.mschober.catalogue.reciever;
 import com.mschober.catalogue.queue.EventProcessingQueue;
 
 public class ReceiverFactor {
-    public static ProductReceiver createReceiver(EventProcessingQueue productReceiverQueue, String type) {
+    public static ProductReceiver createReceiver(EventProcessingQueue receivingQueue, EventProcessingQueue sendingQueue, String type) {
         if (type.equals("file")) {
-            return new FixedWidthProductFileReceiver(productReceiverQueue);
+            return new FixedWidthProductFileReceiver(receivingQueue, sendingQueue);
         }
         throw new RuntimeException("Unknown Type");
     }
