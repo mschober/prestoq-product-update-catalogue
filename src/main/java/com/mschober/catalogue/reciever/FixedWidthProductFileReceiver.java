@@ -2,18 +2,14 @@ package com.mschober.catalogue.reciever;
 
 
 import com.mschober.catalogue.data.ProductEvent;
-import com.mschober.catalogue.data.ProductUpdateEvent;
+import com.mschober.catalogue.data.ProcessProductUpdateEvent;
 import com.mschober.catalogue.queue.EventProcessingQueue;
-import com.mschober.catalogue.queue.SingleThreadedBlockingQueue;
 
 public class FixedWidthProductFileReceiver implements ProductReceiver {
     private final DirectoryWatcher directoryWatcher;
     private final EventProcessor eventProcessor;
 
     public FixedWidthProductFileReceiver(EventProcessingQueue receivingQueue, EventProcessingQueue sendingQueue) {
-        if (receivingQueue == null) {
-            receivingQueue = new SingleThreadedBlockingQueue();
-        }
         //TODO should this class own this? Dep. Inj?
         this.directoryWatcher = new DirectoryWatcher(receivingQueue);
         this.eventProcessor = new EventProcessor(receivingQueue, sendingQueue);
@@ -43,7 +39,7 @@ public class FixedWidthProductFileReceiver implements ProductReceiver {
                     eventData = this.queue.take();
                     System.out.println("Process Event Data : Type : " + eventData.getEventContext());
                     //TODO convert file data to update event
-                    this.sendingQueue.putEventInQueue(new ProductUpdateEvent(eventData.getEventContext()));
+                    this.sendingQueue.putEventInQueue(new ProcessProductUpdateEvent(eventData.getEventContext()));
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }

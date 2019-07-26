@@ -1,9 +1,9 @@
 package com.mschober.catalogue.data;
 
-public class ProductUpdateEvent implements ProductEvent {
+public class ProcessProductUpdateEvent implements ProductEvent {
     private final String eventContext;
 
-    public ProductUpdateEvent(String eventContext) {
+    public ProcessProductUpdateEvent(String eventContext) {
         this.eventContext = eventContext;
     }
 

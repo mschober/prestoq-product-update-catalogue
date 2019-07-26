@@ -2,7 +2,6 @@ package com.mschober.catalogue.reciever;
 
 import com.mschober.catalogue.data.FileProductUpdateEvent;
 import com.mschober.catalogue.queue.EventProcessingQueue;
-import com.mschober.catalogue.queue.SingleThreadedBlockingQueue;
 
 import java.io.IOException;
 import java.nio.file.*;
@@ -24,6 +23,7 @@ public class DirectoryWatcher implements ProductReceiver {
             WatchService watchService
                     = FileSystems.getDefault().newWatchService();
 
+            // TODO: filepath should be configuration
             Path path = Paths.get("/tmp/productchanges");
 
             path.register(
