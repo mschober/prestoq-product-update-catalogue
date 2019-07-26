@@ -2,14 +2,12 @@ package com.mschober.catalogue.reciever;
 
 
 import com.mschober.catalogue.data.ProductEvent;
-import com.mschober.catalogue.data.ProcessProductUpdateEvent;
 import com.mschober.catalogue.queue.EventProcessingQueue;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+import com.mschober.catalogue.queue.EventProcessor;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 
 public class FixedWidthProductFileReceiver implements ProductReceiver {
     private final DirectoryWatcher directoryWatcher;
@@ -18,7 +16,7 @@ public class FixedWidthProductFileReceiver implements ProductReceiver {
     public FixedWidthProductFileReceiver(EventProcessingQueue receivingQueue, EventProcessingQueue sendingQueue) {
         //TODO should this class own this? Dep. Inj?
         this.directoryWatcher = new DirectoryWatcher(receivingQueue);
-        this.eventProcessor = new EventProcessor(receivingQueue, sendingQueue);
+        this.eventProcessor = new RawFileEventProcessor(receivingQueue, sendingQueue);
     }
 
     @Override
@@ -28,42 +26,31 @@ public class FixedWidthProductFileReceiver implements ProductReceiver {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<?> future = executor.submit(this.directoryWatcher);
         executor.shutdown();
-//        this.directoryWatcher.start();
         this.directoryWatcher.register(this.eventProcessor);
-//        // Shutdown after 10 seconds
-//        try {
-//            executor.awaitTermination(10, TimeUnit.SECONDS);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        // abort watcher
-//        future.cancel(true);
-//
-//        try {
-//            executor.awaitTermination(1, TimeUnit.SECONDS);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        executor.shutdownNow();
     }
 
-    class EventProcessor extends Thread {
+    class RawFileEventProcessor extends Thread implements EventProcessor {
         private final EventProcessingQueue queue;
         private final EventProcessingQueue sendingQueue;
+        private boolean running;
 
-        public EventProcessor(EventProcessingQueue productReceiverQueue, EventProcessingQueue sendingQueue) {
+        public RawFileEventProcessor(EventProcessingQueue productReceiverQueue, EventProcessingQueue sendingQueue) {
             this.queue = productReceiverQueue;
             this.sendingQueue = sendingQueue;
+            this.running = false;
         }
 
         @Override
         public void start() {
-            System.out.println("Starting event processor...");
-            super.start();
+            if (!this.running) {
+                System.out.println("Starting event processor...");
+                super.start();
+            }
         }
 
         @Override
         public void run() {
+            this.running = true;
             for (;;) {
                 ProductEvent eventData = null;
                 try {

@@ -2,6 +2,7 @@ package com.mschober.catalogue.reciever;
 
 import com.mschober.catalogue.data.FileProductUpdateEvent;
 import com.mschober.catalogue.queue.EventProcessingQueue;
+import com.mschober.catalogue.queue.EventProcessor;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.util.List;
 public class DirectoryWatcher implements Runnable {
     private final EventProcessingQueue queue;
     private List processors;
+    private EventProcessor eventProcessor;
 
     // watches files changes and pushes events onto the queue
 // https://www.baeldung.com/java-nio2-watchservice
@@ -19,37 +21,7 @@ public class DirectoryWatcher implements Runnable {
 
     DirectoryWatcher(EventProcessingQueue queue) {
         this.queue = queue;
-        this.processors = new LinkedList<FixedWidthProductFileReceiver.EventProcessor>();
     }
-
-//    public void start() {
-//        System.out.println("Starting directory scanner...");
-//        try {
-//            WatchService watchService
-//                    = FileSystems.getDefault().newWatchService();
-//
-//            // TODO: filepath should be configuration
-//            Path path = Paths.get("/tmp/productchanges");
-//
-//            path.register(
-//                    watchService,
-//                    StandardWatchEventKinds.ENTRY_CREATE,
-//                    StandardWatchEventKinds.ENTRY_DELETE,
-//                    StandardWatchEventKinds.ENTRY_MODIFY);
-//
-//            WatchKey key;
-//            while ((key = watchService.take()) != null) {
-//                for (WatchEvent<?> event : key.pollEvents()) {
-//                    putFileProductEvent(event);
-//                }
-//                key.reset();
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     private void putFileProductEvent(WatchEvent<?> event) {
         System.out.println(
@@ -80,7 +52,6 @@ public class DirectoryWatcher implements Runnable {
             while ((key = watchService.take()) != null) {
                 for (WatchEvent<?> event : key.pollEvents()) {
                     putFileProductEvent(event);
-                    FixedWidthProductFileReceiver.EventProcessor eventProcessor = (FixedWidthProductFileReceiver.EventProcessor) this.processors.get(0);
                     eventProcessor.start();
                 }
                 key.reset();
@@ -92,7 +63,7 @@ public class DirectoryWatcher implements Runnable {
         }
     }
 
-    public void register(FixedWidthProductFileReceiver.EventProcessor eventProcessor) {
-        this.processors.add(eventProcessor);
+    public void register(EventProcessor eventProcessor) {
+        this.eventProcessor = eventProcessor;
     }
 }
