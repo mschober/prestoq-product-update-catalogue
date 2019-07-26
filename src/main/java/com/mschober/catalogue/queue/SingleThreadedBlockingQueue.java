@@ -8,19 +8,20 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class SingleThreadedBlockingQueue implements EventProcessingQueue {
 
 
-    private static BlockingQueue<ProductEvent> eventQueue = null;
+    private static SingleThreadedBlockingQueue instance;
+    private static BlockingQueue<ProductEvent> eventQueue;
 
-//    private SingleThreadedBlockingQueue() {}
+    private SingleThreadedBlockingQueue() {}
 
-//    // TODO how should this be handled?
-//    public static EventProcessingQueue getInstance() {
-//        if (instance == null) {
-//            instance = new SingleThreadedBlockingQueue();
-//        }
-//        return instance;
-//    }
 
-    private void initialize() {
+    public static EventProcessingQueue getInstance() {
+        if (instance == null) {
+            instance = new SingleThreadedBlockingQueue();
+        }
+        return instance;
+    }
+
+    private static void initialize() {
         if (eventQueue == null) {
             eventQueue = new LinkedBlockingQueue<>();
         }

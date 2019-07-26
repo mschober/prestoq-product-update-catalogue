@@ -4,6 +4,12 @@ package com.mschober.catalogue.reciever;
 import com.mschober.catalogue.data.ProductEvent;
 import com.mschober.catalogue.data.ProcessProductUpdateEvent;
 import com.mschober.catalogue.queue.EventProcessingQueue;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 public class FixedWidthProductFileReceiver implements ProductReceiver {
     private final DirectoryWatcher directoryWatcher;
@@ -18,8 +24,27 @@ public class FixedWidthProductFileReceiver implements ProductReceiver {
     @Override
     public void start() {
         System.out.println("Starting fixed width file receiver...");
-        this.directoryWatcher.start();
-        this.eventProcessor.start();
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Future<?> future = executor.submit(this.directoryWatcher);
+        executor.shutdown();
+//        this.directoryWatcher.start();
+        this.directoryWatcher.register(this.eventProcessor);
+//        // Shutdown after 10 seconds
+//        try {
+//            executor.awaitTermination(10, TimeUnit.SECONDS);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        // abort watcher
+//        future.cancel(true);
+//
+//        try {
+//            executor.awaitTermination(1, TimeUnit.SECONDS);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        executor.shutdownNow();
     }
 
     class EventProcessor extends Thread {
@@ -32,6 +57,12 @@ public class FixedWidthProductFileReceiver implements ProductReceiver {
         }
 
         @Override
+        public void start() {
+            System.out.println("Starting event processor...");
+            super.start();
+        }
+
+        @Override
         public void run() {
             for (;;) {
                 ProductEvent eventData = null;
@@ -39,7 +70,7 @@ public class FixedWidthProductFileReceiver implements ProductReceiver {
                     eventData = this.queue.take();
                     System.out.println("Process Event Data : Type : " + eventData.getEventContext());
                     //TODO convert file data to update event
-                    this.sendingQueue.putEventInQueue(new ProcessProductUpdateEvent(eventData.getEventContext()));
+//                    this.sendingQueue.putEventInQueue(new ProcessProductUpdateEvent(eventData.getEventContext()));
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }

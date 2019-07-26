@@ -5,13 +5,13 @@ import com.mschober.catalogue.queue.SingleThreadedBlockingQueue;
 import com.mschober.catalogue.service.ProductReceiverService;
 
 public class ProductUpdateCatalogueRunner {
-    static final EventProcessingQueue productReceiverQueue = new SingleThreadedBlockingQueue();
-    static final EventProcessingQueue updateProductQueue = new SingleThreadedBlockingQueue();
-    static final EventProcessingQueue saveProductQueue = new SingleThreadedBlockingQueue();
+    static final EventProcessingQueue productReceiverQueue = SingleThreadedBlockingQueue.getInstance();
+    static final EventProcessingQueue updateProductQueue = SingleThreadedBlockingQueue.getInstance();
+    static final EventProcessingQueue saveProductQueue = SingleThreadedBlockingQueue.getInstance();
 
     public static void main(String[] args) {
-        startServices();
         System.out.println("starting...");
+        startServices();
     }
 
     private static void startServices() {
