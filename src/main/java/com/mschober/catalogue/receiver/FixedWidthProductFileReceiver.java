@@ -25,7 +25,7 @@ public class FixedWidthProductFileReceiver implements ProductReceiver {
         System.out.println("Starting fixed width file receiver...");
 
         ExecutorService executor = Executors.newSingleThreadExecutor();
-        Future<?> future = executor.submit(this.directoryWatcher);
+        executor.submit(this.directoryWatcher);
         executor.shutdown();
         this.directoryWatcher.register(this.eventProcessor);
     }
@@ -44,7 +44,7 @@ public class FixedWidthProductFileReceiver implements ProductReceiver {
         @Override
         public void start() {
             if (!this.running) {
-                System.out.println("Starting event processor...");
+                System.out.println("Starting raw file event processor...");
                 super.start();
             }
         }
@@ -56,7 +56,7 @@ public class FixedWidthProductFileReceiver implements ProductReceiver {
                 ProductEvent eventData = null;
                 try {
                     eventData = this.queue.take();
-                    System.out.println("Process Event Data : Type : " + eventData.getEventContext());
+                    System.out.println("Process Raw File Event Data : Type : " + eventData.getEventContext());
                     //TODO convert file data to update event
                     this.sendingQueue.putEventInQueue(new ProcessProductUpdateEvent(eventData.getEventContext()));
                 } catch (InterruptedException ex) {
