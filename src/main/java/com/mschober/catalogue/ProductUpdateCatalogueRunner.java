@@ -5,8 +5,8 @@ import com.mschober.catalogue.service.ProductReceiverService;
 
 public class ProductUpdateCatalogueRunner {
     static final EventProcessingQueue productReceiverQueue = ReceiverQueue.getInstance();
-    static final EventProcessingQueue updateProductQueue = UpdatesQueue.getInstance();
-    static final EventProcessingQueue saveProductQueue = SaveProductsQueue.getInstance();
+    static final EventProcessingQueue updateProductQueue = UpdaterQueue.getInstance();
+    static final EventProcessingQueue saveProductQueue = SaverQueue.getInstance();
 
     public static void main(String[] args) {
         System.out.println("starting...");
