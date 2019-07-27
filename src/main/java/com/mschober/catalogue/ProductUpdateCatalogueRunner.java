@@ -1,13 +1,12 @@
 package com.mschober.catalogue;
 
-import com.mschober.catalogue.queue.EventProcessingQueue;
-import com.mschober.catalogue.queue.SingleThreadedBlockingQueue;
+import com.mschober.catalogue.queue.*;
 import com.mschober.catalogue.service.ProductReceiverService;
 
 public class ProductUpdateCatalogueRunner {
-    static final EventProcessingQueue productReceiverQueue = SingleThreadedBlockingQueue.getInstance();
-    static final EventProcessingQueue updateProductQueue = SingleThreadedBlockingQueue.getInstance();
-    static final EventProcessingQueue saveProductQueue = SingleThreadedBlockingQueue.getInstance();
+    static final EventProcessingQueue productReceiverQueue = ReceiverQueue.getInstance();
+    static final EventProcessingQueue updateProductQueue = UpdatesQueue.getInstance();
+    static final EventProcessingQueue saveProductQueue = SaveProductsQueue.getInstance();
 
     public static void main(String[] args) {
         System.out.println("starting...");

@@ -1,6 +1,7 @@
 package com.mschober.catalogue.receiver;
 
 
+import com.mschober.catalogue.data.ProcessProductUpdateEvent;
 import com.mschober.catalogue.data.ProductEvent;
 import com.mschober.catalogue.queue.EventProcessingQueue;
 import com.mschober.catalogue.queue.EventProcessor;
@@ -58,7 +59,7 @@ public class FixedWidthProductFileReceiver implements ProductReceiver {
                     eventData = this.queue.take();
                     System.out.println("Process Event Data : Type : " + eventData.getEventContext());
                     //TODO convert file data to update event
-//                    this.sendingQueue.putEventInQueue(new ProcessProductUpdateEvent(eventData.getEventContext()));
+                    this.sendingQueue.putEventInQueue(new ProcessProductUpdateEvent(eventData.getEventContext()));
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
