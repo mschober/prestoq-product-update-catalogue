@@ -10,8 +10,8 @@ public class ProductUpdateService implements Runnable {
 
     private final ApplyRulesUpdateStrategy updateStrategy;
 
-    public ProductUpdateService(EventProcessingQueue updateProductQueue) {
-        updateStrategy = new ApplyRulesUpdateStrategy(updateProductQueue);
+    public ProductUpdateService(EventProcessingQueue updateProductQueue, EventProcessingQueue productQueue) {
+        updateStrategy = new ApplyRulesUpdateStrategy(updateProductQueue, productQueue);
     }
 
     @Override

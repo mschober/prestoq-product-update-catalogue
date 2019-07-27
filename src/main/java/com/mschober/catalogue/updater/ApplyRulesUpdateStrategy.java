@@ -12,8 +12,8 @@ public class ApplyRulesUpdateStrategy implements ProductUpdateStrategy {
 
     private final EventProcessor updateProductEventProcessor;
 
-    public ApplyRulesUpdateStrategy(EventProcessingQueue updateProductsQueue) {
-        this.updateProductEventProcessor = new ApplyRulesEventProcessor(updateProductsQueue);
+    public ApplyRulesUpdateStrategy(EventProcessingQueue updateProductsQueue, EventProcessingQueue productQueue) {
+        this.updateProductEventProcessor = new ApplyRulesEventProcessor(updateProductsQueue, productQueue);
     }
 
     @Override
@@ -28,11 +28,13 @@ public class ApplyRulesUpdateStrategy implements ProductUpdateStrategy {
     private class ApplyRulesEventProcessor extends Thread implements EventProcessor {
 
         private boolean running;
+        private final EventProcessingQueue sendingQueue;
         private EventProcessingQueue queue;
 
-        ApplyRulesEventProcessor(EventProcessingQueue updateProductsQueue) {
+        ApplyRulesEventProcessor(EventProcessingQueue updateProductsQueue, EventProcessingQueue productQueue) {
            this.running = false;
            this.queue = updateProductsQueue;
+           this.sendingQueue = productQueue;
         }
 
         @Override
@@ -51,7 +53,7 @@ public class ApplyRulesUpdateStrategy implements ProductUpdateStrategy {
                     eventData = this.queue.take();
                     System.out.println("Update Event Data : Type : " + eventData.getEventContext());
                     //TODO convert file data to update event
-//                    this.sendingQueue.putEventInQueue(new ProcessProductUpdateEvent(eventData.getEventContext()));
+                    this.sendingQueue.putEventInQueue(new ProcessProductUpdateEvent(eventData.getEventContext()));
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }

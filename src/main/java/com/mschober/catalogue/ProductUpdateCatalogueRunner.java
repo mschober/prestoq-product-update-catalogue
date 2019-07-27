@@ -2,11 +2,11 @@ package com.mschober.catalogue;
 
 import com.mschober.catalogue.queue.*;
 import com.mschober.catalogue.service.ProductReceiverService;
+import com.mschober.catalogue.service.ProductSaveService;
 import com.mschober.catalogue.service.ProductUpdateService;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 public class ProductUpdateCatalogueRunner {
     static final EventProcessingQueue productReceiverQueue = ReceiverQueue.getInstance();
@@ -22,10 +22,12 @@ public class ProductUpdateCatalogueRunner {
         ExecutorService executor = Executors.newSingleThreadExecutor();
 
         ProductReceiverService receiverService = new ProductReceiverService(productReceiverQueue, updateProductQueue);
-        ProductUpdateService updateService = new ProductUpdateService(updateProductQueue);
+        ProductUpdateService updateService = new ProductUpdateService(updateProductQueue, saveProductQueue);
+        ProductSaveService saveService = new ProductSaveService(saveProductQueue);
 
         executor.submit(receiverService);
         executor.submit(updateService);
+        executor.submit(saveService);
         executor.shutdown();
     }
 
