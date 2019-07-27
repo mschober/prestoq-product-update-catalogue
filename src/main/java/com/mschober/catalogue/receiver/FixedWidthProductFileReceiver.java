@@ -1,10 +1,11 @@
-package com.mschober.catalogue.reciever;
+package com.mschober.catalogue.receiver;
 
 
 import com.mschober.catalogue.data.ProductEvent;
 import com.mschober.catalogue.queue.EventProcessingQueue;
 import com.mschober.catalogue.queue.EventProcessor;
 
+import java.nio.file.Paths;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -15,7 +16,7 @@ public class FixedWidthProductFileReceiver implements ProductReceiver {
 
     public FixedWidthProductFileReceiver(EventProcessingQueue receivingQueue, EventProcessingQueue sendingQueue) {
         //TODO should this class own this? Dep. Inj?
-        this.directoryWatcher = new DirectoryWatcher(receivingQueue);
+        this.directoryWatcher = new DirectoryWatcher(receivingQueue, "/tmp/productchanges");
         this.eventProcessor = new RawFileEventProcessor(receivingQueue, sendingQueue);
     }
 

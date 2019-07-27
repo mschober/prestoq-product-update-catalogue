@@ -1,8 +1,8 @@
 package com.mschober.catalogue.service;
 
 import com.mschober.catalogue.queue.EventProcessingQueue;
-import com.mschober.catalogue.reciever.ProductReceiver;
-import com.mschober.catalogue.reciever.ReceiverFactor;
+import com.mschober.catalogue.receiver.ProductReceiver;
+import com.mschober.catalogue.receiver.ReceiverFactor;
 
 import java.util.LinkedList;
 import java.util.List;

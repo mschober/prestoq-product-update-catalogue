@@ -1,26 +1,22 @@
-package com.mschober.catalogue.reciever;
+package com.mschober.catalogue.receiver;
 
 import com.mschober.catalogue.data.FileProductUpdateEvent;
 import com.mschober.catalogue.queue.EventProcessingQueue;
 import com.mschober.catalogue.queue.EventProcessor;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.nio.file.*;
-import java.util.LinkedList;
-import java.util.List;
 
+// watches files changes and pushes events onto the queue
+// https://www.baeldung.com/java-nio2-watchservice
 public class DirectoryWatcher implements Runnable {
     private final EventProcessingQueue queue;
-    private List processors;
+    private final String path;
     private EventProcessor eventProcessor;
 
-    // watches files changes and pushes events onto the queue
-// https://www.baeldung.com/java-nio2-watchservice
-//
-
-    DirectoryWatcher(EventProcessingQueue queue) {
+    DirectoryWatcher(EventProcessingQueue queue, String path) {
         this.queue = queue;
+        this.path = path;
     }
 
     private void putFileProductEvent(WatchEvent<?> event) {
@@ -40,7 +36,7 @@ public class DirectoryWatcher implements Runnable {
                     = FileSystems.getDefault().newWatchService();
 
             // TODO: filepath should be configuration
-            Path path = Paths.get("/tmp/productchanges");
+            Path path = Paths.get(this.path);
 
             path.register(
                     watchService,
@@ -51,6 +47,7 @@ public class DirectoryWatcher implements Runnable {
             WatchKey key;
             while ((key = watchService.take()) != null) {
                 for (WatchEvent<?> event : key.pollEvents()) {
+                    System.out.println("found a file change");
                     putFileProductEvent(event);
                     eventProcessor.start();
                 }

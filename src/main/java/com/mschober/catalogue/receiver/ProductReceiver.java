@@ -1,4 +1,4 @@
-package com.mschober.catalogue.reciever;
+package com.mschober.catalogue.receiver;
 
 public interface ProductReceiver {
     void start();
