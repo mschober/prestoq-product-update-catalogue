@@ -6,8 +6,10 @@ import com.mschober.catalogue.receiver.ReceiverFactor;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-public class ProductReceiverService {
+public class ProductReceiverService implements Runnable {
 
     private final List<ProductReceiver> receivers;
 
@@ -17,9 +19,11 @@ public class ProductReceiverService {
         this.receivers.add(ReceiverFactor.createReceiver(receivingQueue, sendingQueue, "file"));
     }
 
-    public void start() {
+    public void run() {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
         for(ProductReceiver r : this.receivers) {
-            r.start();
+            executor.submit(r);
         }
+        executor.shutdown();
     }
 }

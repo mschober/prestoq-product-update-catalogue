@@ -21,8 +21,7 @@ public class FixedWidthProductFileReceiver implements ProductReceiver {
         this.eventProcessor = new RawFileEventProcessor(receivingQueue, sendingQueue);
     }
 
-    @Override
-    public void start() {
+    public void run() {
         System.out.println("Starting fixed width file receiver...");
 
         ExecutorService executor = Executors.newSingleThreadExecutor();

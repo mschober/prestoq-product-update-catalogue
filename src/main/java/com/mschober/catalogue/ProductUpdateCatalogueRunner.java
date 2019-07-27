@@ -3,6 +3,10 @@ package com.mschober.catalogue;
 import com.mschober.catalogue.queue.*;
 import com.mschober.catalogue.service.ProductReceiverService;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 public class ProductUpdateCatalogueRunner {
     static final EventProcessingQueue productReceiverQueue = ReceiverQueue.getInstance();
     static final EventProcessingQueue updateProductQueue = UpdaterQueue.getInstance();
@@ -15,7 +19,10 @@ public class ProductUpdateCatalogueRunner {
 
     private static void startServices() {
         ProductReceiverService receiverService = new ProductReceiverService(productReceiverQueue, updateProductQueue);
-        receiverService.start();
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.submit(receiverService);
+
+        executor.shutdown();
     }
 
 }
