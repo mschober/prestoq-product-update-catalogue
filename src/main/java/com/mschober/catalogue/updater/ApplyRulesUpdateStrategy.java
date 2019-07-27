@@ -2,6 +2,7 @@ package com.mschober.catalogue.updater;
 
 import com.mschober.catalogue.data.ProcessProductUpdateEvent;
 import com.mschober.catalogue.data.ProductEvent;
+import com.mschober.catalogue.data.SaveProductUpdateEvent;
 import com.mschober.catalogue.queue.EventProcessingQueue;
 import com.mschober.catalogue.queue.EventProcessor;
 
@@ -53,7 +54,7 @@ public class ApplyRulesUpdateStrategy implements ProductUpdateStrategy {
                     eventData = this.queue.take();
                     System.out.println("Update Event Data : Type : " + eventData.getEventContext());
                     //TODO convert file data to update event
-                    this.sendingQueue.putEventInQueue(new ProcessProductUpdateEvent(eventData.getEventContext()));
+                    this.sendingQueue.putEventInQueue(new SaveProductUpdateEvent(eventData.getEventContext()));
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
