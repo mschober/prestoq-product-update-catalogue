@@ -16,7 +16,7 @@ public class DirectoryWatcher implements Runnable {
     private WatchService watchService = null;
     private EventProcessor eventProcessor;
 
-    DirectoryWatcher(EventProcessingQueue queue, String path) {
+    public DirectoryWatcher(EventProcessingQueue queue, String path) {
         this.queue = queue;
         this.path = path;
         try {

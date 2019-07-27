@@ -1,15 +1,15 @@
-package com.mschober.catalogue.receiver;
+package com.mschober.catalogue.receiver.fixedwidth;
 
 
 import com.mschober.catalogue.data.ProcessProductUpdateEvent;
 import com.mschober.catalogue.data.ProductEvent;
 import com.mschober.catalogue.queue.EventProcessingQueue;
 import com.mschober.catalogue.queue.EventProcessor;
+import com.mschober.catalogue.receiver.DirectoryWatcher;
+import com.mschober.catalogue.receiver.ProductReceiver;
 
-import java.nio.file.Paths;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 public class FixedWidthProductFileReceiver implements ProductReceiver {
     private final DirectoryWatcher directoryWatcher;
