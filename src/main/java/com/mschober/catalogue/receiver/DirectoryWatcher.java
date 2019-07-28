@@ -1,6 +1,7 @@
 package com.mschober.catalogue.receiver;
 
 import com.mschober.catalogue.data.FileProductUpdateEvent;
+import com.mschober.catalogue.data.ProductEvent;
 import com.mschober.catalogue.queue.EventProcessingQueue;
 import com.mschober.catalogue.queue.EventProcessor;
 
@@ -31,7 +32,9 @@ public class DirectoryWatcher implements Runnable {
                 "Event kind:" + event.kind()
                         + ". File affected: " + event.context() + ".");
 
-        this.queue.putEventInQueue(new FileProductUpdateEvent("" + event.context()));
+        ProductEvent fileEvent = new FileProductUpdateEvent(event, path);
+
+        this.queue.putEventInQueue(fileEvent);
         if(this.eventProcessor != null) {
             this.eventProcessor.start();
         }

@@ -1,7 +1,7 @@
 package com.mschober.catalogue.receiver;
 
 import com.mschober.catalogue.queue.EventProcessingQueue;
-import com.mschober.catalogue.receiver.fixedwidth.FixedWidthProductFileReceiver;
+import com.mschober.catalogue.receiver.file.fixedwidth.FixedWidthProductFileReceiver;
 
 public class ReceiverFactor {
     public static ProductReceiver createReceiver(EventProcessingQueue receivingQueue, EventProcessingQueue sendingQueue, String type) {

@@ -1,9 +1,7 @@
-package com.mschober.catalogue.receiver.fixedwidth;
+package com.mschober.catalogue.receiver.file.fixedwidth;
 
 import com.google.common.io.Files;
-import com.univocity.parsers.common.processor.RowListProcessor;
 import org.junit.Test;
-import com.univocity.parsers.fixed.*;
 
 import java.io.File;
 import java.io.IOException;

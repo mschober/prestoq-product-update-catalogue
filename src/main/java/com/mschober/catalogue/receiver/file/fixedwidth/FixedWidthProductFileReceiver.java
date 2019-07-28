@@ -1,4 +1,4 @@
-package com.mschober.catalogue.receiver.fixedwidth;
+package com.mschober.catalogue.receiver.file.fixedwidth;
 
 
 import com.mschober.catalogue.data.ProcessProductUpdateEvent;
