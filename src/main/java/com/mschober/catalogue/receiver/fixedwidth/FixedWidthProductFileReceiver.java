@@ -8,6 +8,8 @@ import com.mschober.catalogue.queue.EventProcessor;
 import com.mschober.catalogue.receiver.DirectoryWatcher;
 import com.mschober.catalogue.receiver.ProductReceiver;
 
+import java.io.File;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -17,8 +19,9 @@ public class FixedWidthProductFileReceiver implements ProductReceiver {
 
     public FixedWidthProductFileReceiver(EventProcessingQueue receivingQueue, EventProcessingQueue sendingQueue) {
         //TODO should this class own this? Dep. Inj?
-        this.directoryWatcher = new DirectoryWatcher(receivingQueue, "/tmp/productchanges");
-        this.eventProcessor = new RawFileEventProcessor(receivingQueue, sendingQueue);
+        String watchDir = "/tmp/productchanges";
+        this.directoryWatcher = new DirectoryWatcher(receivingQueue, watchDir);
+        this.eventProcessor = new RawFileEventProcessor(receivingQueue, sendingQueue, watchDir);
     }
 
     public void run() {
@@ -34,10 +37,12 @@ public class FixedWidthProductFileReceiver implements ProductReceiver {
         private final EventProcessingQueue queue;
         private final EventProcessingQueue sendingQueue;
         private boolean running;
+        private String watchDir;
 
-        public RawFileEventProcessor(EventProcessingQueue productReceiverQueue, EventProcessingQueue sendingQueue) {
+        public RawFileEventProcessor(EventProcessingQueue productReceiverQueue, EventProcessingQueue sendingQueue, String watchDir) {
             this.queue = productReceiverQueue;
             this.sendingQueue = sendingQueue;
+            this.watchDir = watchDir;
             this.running = false;
         }
 
@@ -58,6 +63,8 @@ public class FixedWidthProductFileReceiver implements ProductReceiver {
                     eventData = this.queue.take();
                     System.out.println("Process Raw File Event Data : Type : " + eventData.getEventContext());
                     //TODO convert file data to update event
+                    FixedWithProductUpdateFileParser fixedWithProductUpdateFileParser = new FixedWithProductUpdateFileParser();
+                    List<String[]> parse = fixedWithProductUpdateFileParser.parse(new File(this.watchDir + "/" + eventData.getEventContext()));
                     this.sendingQueue.putEventInQueue(new ProcessProductUpdateEvent(eventData.getEventContext()));
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
