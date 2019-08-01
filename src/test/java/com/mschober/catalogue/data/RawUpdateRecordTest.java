@@ -3,8 +3,6 @@ package com.mschober.catalogue.data;
 import org.junit.Test;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.*;
 

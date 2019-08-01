@@ -12,15 +12,22 @@ public class ProcessProductUpdateEvent implements ProductEvent, Collection {
 
     public ProcessProductUpdateEvent(List<String[]> parsedRows) {
         this.eventContext = "static context";
-        this.updateEvents = new ArrayList<UpdateRecord>();
+        this.updateEvents = new ArrayList<UpdateRecord>(parsedRows.size());
         for (int i = 0; i < parsedRows.size(); i++) {
             updateEvents.add(new RawUpdateRecord(parsedRows.get(i)));
         }
     }
 
+    //TODO this is for debugging
     @Override
     public String getEventContext() {
-        return this.eventContext;
+
+        StringBuilder sb = new StringBuilder();
+
+        for (UpdateRecord r : this.updateEvents) {
+            sb.append(r.toString());
+        }
+        return sb.toString();
     }
 
     @Override

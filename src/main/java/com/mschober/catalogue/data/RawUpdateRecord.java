@@ -14,6 +14,22 @@ public class RawUpdateRecord implements UpdateRecord {
     private final String flags;
     private final String productSize;
 
+    @Override
+    public String toString() {
+        return "RawUpdateRecord{" +
+                "productId='" + productId + '\'' +
+                ", productDescription='" + productDescription + '\'' +
+                ", regularSingularPrice=" + regularSingularPrice +
+                ", promotionalSingularPrice=" + promotionalSingularPrice +
+                ", regularSplitPrice=" + regularSplitPrice +
+                ", promotionalSplitPrice=" + promotionalSplitPrice +
+                ", regularForX=" + regularForX +
+                ", promotionalForX=" + promotionalForX +
+                ", flags='" + flags + '\'' +
+                ", productSize='" + productSize + '\'' +
+                '}';
+    }
+
     public RawUpdateRecord(String[] rawRow) {
         this.productId = rawRow[0];
         this.productDescription = rawRow[1];
