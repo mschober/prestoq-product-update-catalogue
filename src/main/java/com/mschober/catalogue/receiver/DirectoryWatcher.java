@@ -7,7 +7,6 @@ import com.mschober.catalogue.queue.EventProcessor;
 
 import java.io.IOException;
 import java.nio.file.*;
-import java.util.concurrent.TimeUnit;
 
 // watches files changes and pushes events onto the queue
 // https://www.baeldung.com/java-nio2-watchservice
@@ -74,9 +73,5 @@ public class DirectoryWatcher implements Runnable {
 
     public void register(EventProcessor eventProcessor) {
         this.eventProcessor = eventProcessor;
-    }
-
-    public WatchKey poll(long i, TimeUnit seconds) throws InterruptedException {
-        return this.watchService.poll(i, seconds);
     }
 }

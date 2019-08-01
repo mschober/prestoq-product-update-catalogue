@@ -1,6 +1,7 @@
 package com.mschober.catalogue.receiver.file.fixedwidth;
 
 
+import com.mschober.catalogue.data.FileProductUpdateEvent;
 import com.mschober.catalogue.data.ProcessProductUpdateEvent;
 import com.mschober.catalogue.data.ProductEvent;
 import com.mschober.catalogue.queue.EventProcessingQueue;
@@ -8,7 +9,6 @@ import com.mschober.catalogue.queue.EventProcessor;
 import com.mschober.catalogue.receiver.DirectoryWatcher;
 import com.mschober.catalogue.receiver.ProductReceiver;
 
-import java.io.File;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -64,7 +64,7 @@ public class FixedWidthProductFileReceiver implements ProductReceiver {
                     System.out.println("Process Raw File Event Data : Type : " + eventData.getEventContext());
                     //TODO convert file data to update event
                     FixedWithProductUpdateFileParser fixedWithProductUpdateFileParser = new FixedWithProductUpdateFileParser();
-                    List<String[]> parse = fixedWithProductUpdateFileParser.parse(new File(this.watchDir + "/" + eventData.getEventContext()));
+                    List<String[]> parse = fixedWithProductUpdateFileParser.parse(((FileProductUpdateEvent) eventData).getChangedFile());
                     this.sendingQueue.putEventInQueue(new ProcessProductUpdateEvent(eventData.getEventContext()));
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
