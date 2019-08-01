@@ -6,14 +6,14 @@
 
 ## To run package with maven and run as a jar
 
-1. `mvn clean install && mvn package && ./run.sh`sh
+1. `mvn clean install && mvn package && ./run.sh`
 
 ## To feed data to the service
 
 1. drop a file in /tmp/productchanges
 2. if /tmp/productchanges doesn't exist
 
-`mkdir /tmp/productchanges`sh
+`mkdir /tmp/productchanges`
 
 ## How it works
 * When files land in the change directory they will be automatically pickedup on a 2 second polling mechanism.
