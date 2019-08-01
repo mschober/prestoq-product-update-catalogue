@@ -40,7 +40,7 @@ public class RawUpdateRecordTest {
         assertEquals(new BigInteger("100"), event.getPromotionalSplitPrice());
         assertEquals(new BigInteger("66"), event.getRegularForX());
         assertEquals(new BigInteger("99"), event.getPromotionalForX());
-        assertEquals("NNNNNNNNN", event.getFlags());
+        assertEquals("YYNNNYNNN", event.getFlags());
         assertEquals("6lbs", event.getProductSize());
     }
 
