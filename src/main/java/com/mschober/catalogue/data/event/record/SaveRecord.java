@@ -34,36 +34,41 @@ public class SaveRecord implements ProductRecord {
 
     @Override
     public BigInteger getRegularSplitPrice() {
-        return this.getRegularSplitPrice();
+        return this.productRecord.getRegularSplitPrice();
     }
 
     @Override
     public BigInteger getPromotionalSplitPrice() {
-        return this.getPromotionalSplitPrice();
+        return this.productRecord.getPromotionalSplitPrice();
     }
 
     @Override
     public BigInteger getRegularForX() {
-        return this.getRegularForX();
+        return this.productRecord.getRegularForX();
     }
 
     @Override
     public BigInteger getPromotionalForX() {
-        return this.getPromotionalForX();
+        return this.productRecord.getPromotionalForX();
     }
 
     @Override
     public String getFlags() {
-        return this.getFlags();
+        return this.productRecord.getFlags();
     }
 
     @Override
     public String getProductSize() {
-        return this.getProductSize();
+        return this.productRecord.getProductSize();
     }
 
     @Override
     public String getEventContext() {
         return this.productRecord.toString();
+    }
+
+    @Override
+    public String toString() {
+        return this.productRecord.getEventContext();
     }
 }

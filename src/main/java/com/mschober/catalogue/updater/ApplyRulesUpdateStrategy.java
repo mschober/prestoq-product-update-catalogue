@@ -6,7 +6,7 @@ import com.mschober.catalogue.data.event.record.SaveRecord;
 import com.mschober.catalogue.queue.EventProcessingQueue;
 import com.mschober.catalogue.queue.EventProcessor;
 
-import java.util.HashSet;
+import java.util.Collection;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -29,7 +29,7 @@ public class ApplyRulesUpdateStrategy implements ProductUpdateStrategy {
 
     private class ApplyRulesEventProcessor extends Thread implements EventProcessor {
 
-        private final HashSet<UpdateRule> rules;
+        private final Collection<UpdateRule> rules;
         private boolean running;
         private final EventProcessingQueue sendingQueue;
         private EventProcessingQueue queue;
@@ -38,7 +38,7 @@ public class ApplyRulesUpdateStrategy implements ProductUpdateStrategy {
            this.running = false;
            this.queue = updateProductsQueue;
            this.sendingQueue = productQueue;
-           this.rules = new HashSet<UpdateRule>();
+           this.rules = new IndependentRuleSet();
            this.rules.add(new SplitPricingRule());
            this.rules.add(new TaxRateRule());
            this.rules.add(new UnitOfMeasureRule());
@@ -69,18 +69,6 @@ public class ApplyRulesUpdateStrategy implements ProductUpdateStrategy {
                     ex.printStackTrace();
                 }
             }
-        }
-
-        private void applyUnitOfMeasureRule(SaveRecord saveRecord) {
-
-        }
-
-        private void applyTaxRateRule(SaveRecord saveRecord) {
-
-        }
-
-        private void applySplitPricingRule(SaveRecord saveRecord) {
-
         }
     }
 }
