@@ -63,6 +63,11 @@ public class SaveRecord implements ProductRecord {
     }
 
     @Override
+    public void setTaxRate(double v) {
+        this.productRecord.setTaxRate(v);
+    }
+
+    @Override
     public String getEventContext() {
             return this.productRecord.toString();
     }

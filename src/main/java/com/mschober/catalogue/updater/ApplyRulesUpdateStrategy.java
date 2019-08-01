@@ -42,6 +42,7 @@ public class ApplyRulesUpdateStrategy implements ProductUpdateStrategy {
            this.rules.add(new SplitPricingRule());
            this.rules.add(new TaxRateRule());
            this.rules.add(new UnitOfMeasureRule());
+           this.rules.add(new PromotionalPricingRule());
         }
 
         @Override

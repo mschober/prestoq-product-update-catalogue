@@ -9,7 +9,8 @@ public class TaxRateRule implements UpdateRule {
     @Override
     public void applyRule(SaveRecord saveRecord) {
         if (saveRecord.getFlags().charAt(TAXABLE_FLAG) == 'Y') {
-            System.out.println("applying tax rate rule" + saveRecord.getProductId());
+            System.out.println("applying tax rate rule " + saveRecord.getProductId());
+            saveRecord.setTaxRate(.07775);
         }
     }
 

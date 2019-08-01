@@ -13,6 +13,7 @@ public class RawUpdateRecord implements ProductRecord {
     private final BigInteger promotionalForX;
     private final String flags;
     private final String productSize;
+    private Double taxRate;
 
     @Override
     public String getEventContext() {
@@ -32,6 +33,7 @@ public class RawUpdateRecord implements ProductRecord {
                 ", promotionalForX=" + promotionalForX +
                 ", flags='" + flags + '\'' +
                 ", productSize='" + productSize + '\'' +
+                ", taxRate=" + taxRate +
                 '}';
     }
 
@@ -97,5 +99,10 @@ public class RawUpdateRecord implements ProductRecord {
     @Override
     public String getProductSize() {
         return this.productSize;
+    }
+
+    @Override
+    public void setTaxRate(double v) {
+        this.taxRate = v;
     }
 }

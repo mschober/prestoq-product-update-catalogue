@@ -25,4 +25,6 @@ public interface ProductRecord extends ProductEvent {
     String getFlags();
 
     String getProductSize();
+
+    void setTaxRate(double v);
 }
