@@ -52,6 +52,7 @@ public class ApplyRulesUpdateStrategy implements ProductUpdateStrategy {
             }
         }
 
+        //TODO refactor to a template?
         public void run() {
             this.running = true;
             for (;;) {
@@ -59,12 +60,11 @@ public class ApplyRulesUpdateStrategy implements ProductUpdateStrategy {
                 try {
                     eventData = this.queue.take();
                     System.out.println("Update Event Data : Type : " + eventData.getEventContext());
-                    //TODO convert file data to update event
                     SaveRecord saveRecord = new SaveRecord(eventData);
                     for (UpdateRule rule : this.rules) {
                         rule.applyRule(saveRecord);
                     }
-                    this.sendingQueue.putEventInQueue(new SaveProductUpdateEvent(eventData.getEventContext()));
+                    this.sendingQueue.putEventInQueue(new SaveProductUpdateEvent(saveRecord));
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
