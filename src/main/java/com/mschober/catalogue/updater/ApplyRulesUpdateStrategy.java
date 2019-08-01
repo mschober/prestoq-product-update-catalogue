@@ -2,7 +2,7 @@ package com.mschober.catalogue.updater;
 
 import com.mschober.catalogue.data.event.ProductEvent;
 import com.mschober.catalogue.data.event.SaveProductUpdateEvent;
-import com.mschober.catalogue.data.event.record.SaveRecord;
+import com.mschober.catalogue.data.event.record.TransformedUpdateRecord;
 import com.mschober.catalogue.queue.EventProcessingQueue;
 import com.mschober.catalogue.queue.EventProcessor;
 
@@ -61,7 +61,7 @@ public class ApplyRulesUpdateStrategy implements ProductUpdateStrategy {
                 try {
                     eventData = this.queue.take();
                     System.out.println("Update Event Data : Type : " + eventData.getEventContext());
-                    SaveRecord saveRecord = new SaveRecord(eventData);
+                    TransformedUpdateRecord saveRecord = new TransformedUpdateRecord(eventData);
                     for (UpdateRule rule : this.rules) {
                         rule.applyRule(saveRecord);
                     }

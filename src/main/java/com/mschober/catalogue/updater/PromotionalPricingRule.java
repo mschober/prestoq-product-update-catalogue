@@ -1,13 +1,13 @@
 package com.mschober.catalogue.updater;
 
-import com.mschober.catalogue.data.event.record.SaveRecord;
+import com.mschober.catalogue.data.event.record.TransformedUpdateRecord;
 
 import java.math.BigDecimal;
 
 public class PromotionalPricingRule extends PricingRule implements UpdateRule{
 
     @Override
-    public void applyRule(SaveRecord saveRecord) {
+    public void applyRule(TransformedUpdateRecord saveRecord) {
 
         boolean isPromotionalSingle = saveRecord.getPromotionalSingularPrice().intValue() > 0;
         boolean isPromotionalSplit = saveRecord.getPromotionalSplitPrice().intValue() > 0;

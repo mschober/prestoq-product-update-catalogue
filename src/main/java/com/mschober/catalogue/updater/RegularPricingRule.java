@@ -1,14 +1,13 @@
 package com.mschober.catalogue.updater;
 
-import com.mschober.catalogue.data.event.record.SaveRecord;
+import com.mschober.catalogue.data.event.record.TransformedUpdateRecord;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 public class RegularPricingRule extends PricingRule implements UpdateRule {
 
     @Override
-    public void applyRule(SaveRecord saveRecord) {
+    public void applyRule(TransformedUpdateRecord saveRecord) {
         //TODO will this create issues with very large values?
 
         boolean isRegularSingle = saveRecord.getRegularSingularPrice().intValue() > 0;

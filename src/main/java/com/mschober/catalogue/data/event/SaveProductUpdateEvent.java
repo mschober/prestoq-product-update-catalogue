@@ -1,16 +1,16 @@
 package com.mschober.catalogue.data.event;
 
-import com.mschober.catalogue.data.event.ProductEvent;
+import com.mschober.catalogue.data.event.record.SaveRecord;
 
 public class SaveProductUpdateEvent implements ProductEvent {
-    private final String eventContext;
+    private final SaveRecord productRecord;
 
     public SaveProductUpdateEvent(ProductEvent event) {
-        this.eventContext = event.getEventContext();
+        this.productRecord = new SaveRecord(event);
     }
 
     @Override
     public String getEventContext() {
-        return eventContext;
+        return this.productRecord.getEventContext();
     }
 }

@@ -38,4 +38,16 @@ public interface ProductRecord extends ProductEvent {
     void setRegularDisplayPrice(String calculateDisplayPrice);
 
     void setRegularCalculatorPrice(BigDecimal calculateCalculatorPrice);
+
+    BigDecimal getTaxRate();
+
+    String getUnitOfMeasure();
+
+    String getPromotionalDisplayPrice();
+
+    BigDecimal getPromotionalCalculatorPrice();
+
+    String getRegularDisplayPrice();
+
+    BigDecimal getRegularCalculatorPrice();
 }

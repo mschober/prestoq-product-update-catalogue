@@ -141,4 +141,36 @@ public class RawUpdateRecord implements ProductRecord {
     public void setRegularCalculatorPrice(BigDecimal calculateCalculatorPrice) {
         this.regularCalculatorPrice = calculateCalculatorPrice;
     }
+
+    //TODO should have already been a BigDecimal;
+    @Override
+    public BigDecimal getTaxRate() {
+        System.out.println("getting tax rate");
+        return new BigDecimal(this.taxRate);
+    }
+
+    @Override
+    public String getUnitOfMeasure() {
+        return this.unitOfMeasure;
+    }
+
+    @Override
+    public String getPromotionalDisplayPrice() {
+        return this.promotionalDisplayPrice;
+    }
+
+    @Override
+    public BigDecimal getPromotionalCalculatorPrice() {
+        return this.promotionalCalculatorPrice;
+    }
+
+    @Override
+    public String getRegularDisplayPrice() {
+        return this.regularDisplayPrice;
+    }
+
+    @Override
+    public BigDecimal getRegularCalculatorPrice() {
+        return this.regularCalculatorPrice;
+    }
 }
