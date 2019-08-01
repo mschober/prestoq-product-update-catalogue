@@ -64,8 +64,8 @@ public class FixedWidthProductFileReceiver implements ProductReceiver {
                     System.out.println("Process Raw File Event Data : Type : " + eventData.getEventContext());
                     //TODO convert file data to update event
                     FixedWithProductUpdateFileParser fixedWithProductUpdateFileParser = new FixedWithProductUpdateFileParser();
-                    List<String[]> parse = fixedWithProductUpdateFileParser.parse(((FileProductUpdateEvent) eventData).getChangedFile());
-                    this.sendingQueue.putEventInQueue(new ProcessProductUpdateEvent(eventData.getEventContext()));
+                    List<String[]> rawFileRows = fixedWithProductUpdateFileParser.parse(((FileProductUpdateEvent) eventData).getChangedFile());
+                    this.sendingQueue.putEventInQueue(new ProcessProductUpdateEvent(rawFileRows));
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }

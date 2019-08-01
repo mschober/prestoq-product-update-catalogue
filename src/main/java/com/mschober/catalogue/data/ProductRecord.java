@@ -1,3 +1,3 @@
 package com.mschober.catalogue.data;
-public class ProductRecord {
+public interface ProductRecord {
 }

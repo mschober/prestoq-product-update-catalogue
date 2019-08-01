@@ -15,6 +15,7 @@ import static junit.framework.TestCase.assertEquals;
 
 public class TestFixedWithProductReader {
 
+    //TODO create a domain object for the raw file rows
     @Test
     public void testReadFile() throws IOException {
         File tempDir = Files.createTempDir();

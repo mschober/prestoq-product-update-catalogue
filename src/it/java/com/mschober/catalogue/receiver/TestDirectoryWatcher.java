@@ -44,6 +44,7 @@ public class TestDirectoryWatcher {
 //        Thread.sleep(15000);
     }
 
+    @Ignore
     @Test
     public void testDoWork() throws InterruptedException, IOException {
 
