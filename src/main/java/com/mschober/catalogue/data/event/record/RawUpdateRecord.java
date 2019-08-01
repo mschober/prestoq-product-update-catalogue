@@ -2,7 +2,7 @@ package com.mschober.catalogue.data.event.record;
 
 import java.math.BigInteger;
 
-public class RawUpdateRecord implements UpdateRecord {
+public class RawUpdateRecord implements ProductRecord {
     private final String productId;
     private final String productDescription;
     private final BigInteger regularSingularPrice;

@@ -1,7 +1,7 @@
 package com.mschober.catalogue.data;
 
 import com.mschober.catalogue.data.event.ProcessProductUpdateEvent;
-import com.mschober.catalogue.data.event.record.UpdateRecord;
+import com.mschober.catalogue.data.event.record.ProductRecord;
 import org.junit.Test;
 
 import java.math.BigInteger;
@@ -19,7 +19,7 @@ public class ProcessProductUpdateEventTest {
         expectedRows.add(new String [] {"14963801", "Generic Soda 12-pack",       "00000000", "00000549", "00001300", "00000000", "00000002", "00000000", "NNNNYNNNN", "12x12oz"});
         ProcessProductUpdateEvent processProductUpdateEvent = new ProcessProductUpdateEvent(expectedRows);
 
-        UpdateRecord secondRow = processProductUpdateEvent.get(1);
+        ProductRecord secondRow = processProductUpdateEvent.get(1);
 
         assertEquals(secondRow.getProductDescription(), "Generic Soda 12-pack");
         assertEquals(secondRow.getPromotionalSingularPrice(), new BigInteger("00000549"));

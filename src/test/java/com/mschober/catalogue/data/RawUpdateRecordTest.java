@@ -1,7 +1,7 @@
 package com.mschober.catalogue.data;
 
 import com.mschober.catalogue.data.event.record.RawUpdateRecord;
-import com.mschober.catalogue.data.event.record.UpdateRecord;
+import com.mschober.catalogue.data.event.record.ProductRecord;
 import org.junit.Test;
 
 import java.math.BigInteger;
@@ -14,7 +14,7 @@ public class RawUpdateRecordTest {
     public void testHappyCreateUpdateEvent() {
         String[] exampleProductUpdate = {"80000001", "Kimchi-flavored white rice", "00000567", "00000000", "00000000", "00000000", "00000000", "00000000", "NNNNNNNNN", "18oz"};
 
-        UpdateRecord event = new RawUpdateRecord(exampleProductUpdate);
+        ProductRecord event = new RawUpdateRecord(exampleProductUpdate);
         assertEquals("80000001", event.getProductId());
         assertEquals("Kimchi-flavored white rice", event.getProductDescription());
         assertEquals(new BigInteger("00000567"), event.getRegularSingularPrice());
@@ -31,7 +31,7 @@ public class RawUpdateRecordTest {
     @Test
     public void testOtherValues() {
         String[] exampleProductUpdate = {"900420001", "Some wild and crazy thing", "29", "32", "45", "100", "66", "99", "YYNNNYNNN", "6lbs"};
-        UpdateRecord event = new RawUpdateRecord(exampleProductUpdate);
+        ProductRecord event = new RawUpdateRecord(exampleProductUpdate);
         assertEquals("900420001", event.getProductId());
         assertEquals("Some wild and crazy thing", event.getProductDescription());
         assertEquals(new BigInteger("29"), event.getRegularSingularPrice());

@@ -1,7 +1,7 @@
 package com.mschober.catalogue.data.event;
 
 import com.mschober.catalogue.data.event.record.RawUpdateRecord;
-import com.mschober.catalogue.data.event.record.UpdateRecord;
+import com.mschober.catalogue.data.event.record.ProductRecord;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
 public class ProcessProductUpdateEvent implements ProductEvent {
 
     private final String eventContext;
-    private final List<UpdateRecord> updateEvents;
+    private final List<ProductRecord> updateEvents;
 
     public ProcessProductUpdateEvent(List<String[]> parsedRows) {
         this.eventContext = "static context";
@@ -25,13 +25,13 @@ public class ProcessProductUpdateEvent implements ProductEvent {
 
         StringBuilder sb = new StringBuilder();
 
-        for (UpdateRecord r : this.updateEvents) {
+        for (ProductRecord r : this.updateEvents) {
             sb.append(r.toString());
         }
         return sb.toString();
     }
 
-    public UpdateRecord get(int index) {
+    public ProductRecord get(int index) {
         return this.updateEvents.get(index);
     }
 }

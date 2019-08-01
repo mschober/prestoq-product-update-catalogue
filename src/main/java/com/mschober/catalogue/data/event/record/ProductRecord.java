@@ -4,7 +4,7 @@ import com.mschober.catalogue.data.event.ProductEvent;
 
 import java.math.BigInteger;
 
-public interface UpdateRecord extends ProductEvent {
+public interface ProductRecord extends ProductEvent {
     String getProductId();
 
     String getProductDescription();

@@ -2,9 +2,11 @@ package com.mschober.catalogue.updater;
 
 import com.mschober.catalogue.data.event.ProductEvent;
 import com.mschober.catalogue.data.event.SaveProductUpdateEvent;
+import com.mschober.catalogue.data.event.record.SaveRecord;
 import com.mschober.catalogue.queue.EventProcessingQueue;
 import com.mschober.catalogue.queue.EventProcessor;
 
+import java.util.HashSet;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -27,6 +29,7 @@ public class ApplyRulesUpdateStrategy implements ProductUpdateStrategy {
 
     private class ApplyRulesEventProcessor extends Thread implements EventProcessor {
 
+        private final HashSet<UpdateRule> rules;
         private boolean running;
         private final EventProcessingQueue sendingQueue;
         private EventProcessingQueue queue;
@@ -35,6 +38,10 @@ public class ApplyRulesUpdateStrategy implements ProductUpdateStrategy {
            this.running = false;
            this.queue = updateProductsQueue;
            this.sendingQueue = productQueue;
+           this.rules = new HashSet<UpdateRule>();
+           this.rules.add(new SplitPricingRule());
+           this.rules.add(new TaxRateRule());
+           this.rules.add(new UnitOfMeasureRule());
         }
 
         @Override
@@ -50,14 +57,30 @@ public class ApplyRulesUpdateStrategy implements ProductUpdateStrategy {
             for (;;) {
                 ProductEvent eventData = null;
                 try {
-                    eventData = (ProductEvent) this.queue.take();
+                    eventData = this.queue.take();
                     System.out.println("Update Event Data : Type : " + eventData.getEventContext());
                     //TODO convert file data to update event
+                    SaveRecord saveRecord = new SaveRecord(eventData);
+                    for (UpdateRule rule : this.rules) {
+                        rule.applyRule(saveRecord);
+                    }
                     this.sendingQueue.putEventInQueue(new SaveProductUpdateEvent(eventData.getEventContext()));
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
             }
+        }
+
+        private void applyUnitOfMeasureRule(SaveRecord saveRecord) {
+
+        }
+
+        private void applyTaxRateRule(SaveRecord saveRecord) {
+
+        }
+
+        private void applySplitPricingRule(SaveRecord saveRecord) {
+
         }
     }
 }
