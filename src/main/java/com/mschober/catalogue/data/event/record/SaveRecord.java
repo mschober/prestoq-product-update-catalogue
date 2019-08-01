@@ -68,6 +68,11 @@ public class SaveRecord implements ProductRecord {
     }
 
     @Override
+    public void setUnitOfMeasure(String pound) {
+        this.productRecord.setUnitOfMeasure(pound);
+    }
+
+    @Override
     public String getEventContext() {
             return this.productRecord.toString();
     }

@@ -14,6 +14,7 @@ public class RawUpdateRecord implements ProductRecord {
     private final String flags;
     private final String productSize;
     private Double taxRate;
+    private String unitOfMeasure = "Each";
 
     @Override
     public String getEventContext() {
@@ -34,6 +35,7 @@ public class RawUpdateRecord implements ProductRecord {
                 ", flags='" + flags + '\'' +
                 ", productSize='" + productSize + '\'' +
                 ", taxRate=" + taxRate +
+                ", unitOfMeasure='" + unitOfMeasure + '\'' +
                 '}';
     }
 
@@ -104,5 +106,10 @@ public class RawUpdateRecord implements ProductRecord {
     @Override
     public void setTaxRate(double v) {
         this.taxRate = v;
+    }
+
+    @Override
+    public void setUnitOfMeasure(String pound) {
+        this.unitOfMeasure = pound;
     }
 }

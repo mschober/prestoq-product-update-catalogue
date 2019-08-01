@@ -27,4 +27,6 @@ public interface ProductRecord extends ProductEvent {
     String getProductSize();
 
     void setTaxRate(double v);
+
+    void setUnitOfMeasure(String pound);
 }
