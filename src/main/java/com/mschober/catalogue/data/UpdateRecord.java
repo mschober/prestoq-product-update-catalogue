@@ -2,7 +2,7 @@ package com.mschober.catalogue.data;
 
 import java.math.BigInteger;
 
-public interface UpdateRecord {
+public interface UpdateRecord extends ProductEvent {
     String getProductId();
 
     String getProductDescription();

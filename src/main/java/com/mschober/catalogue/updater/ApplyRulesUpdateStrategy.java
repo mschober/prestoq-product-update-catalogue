@@ -50,7 +50,7 @@ public class ApplyRulesUpdateStrategy implements ProductUpdateStrategy {
             for (;;) {
                 ProductEvent eventData = null;
                 try {
-                    eventData = this.queue.take();
+                    eventData = (ProductEvent) this.queue.take();
                     System.out.println("Update Event Data : Type : " + eventData.getEventContext());
                     //TODO convert file data to update event
                     this.sendingQueue.putEventInQueue(new SaveProductUpdateEvent(eventData.getEventContext()));

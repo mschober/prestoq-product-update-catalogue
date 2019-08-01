@@ -2,6 +2,7 @@ package com.mschober.catalogue.data;
 
 import java.io.File;
 import java.nio.file.WatchEvent;
+import java.util.List;
 
 public class FileProductUpdateEvent implements ProductEvent {
     private final WatchEvent<?> watchEvent;

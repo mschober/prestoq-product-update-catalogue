@@ -4,6 +4,7 @@ package com.mschober.catalogue.receiver.file.fixedwidth;
 import com.mschober.catalogue.data.FileProductUpdateEvent;
 import com.mschober.catalogue.data.ProcessProductUpdateEvent;
 import com.mschober.catalogue.data.ProductEvent;
+import com.mschober.catalogue.data.RawUpdateRecord;
 import com.mschober.catalogue.queue.EventProcessingQueue;
 import com.mschober.catalogue.queue.EventProcessor;
 import com.mschober.catalogue.receiver.DirectoryWatcher;
@@ -62,10 +63,12 @@ public class FixedWidthProductFileReceiver implements ProductReceiver {
                 try {
                     eventData = this.queue.take();
                     System.out.println("Process Raw File Event Data : Type : " + eventData.getEventContext());
-                    //TODO convert file data to update event
                     FixedWithProductUpdateFileParser fixedWithProductUpdateFileParser = new FixedWithProductUpdateFileParser();
                     List<String[]> rawFileRows = fixedWithProductUpdateFileParser.parse(((FileProductUpdateEvent) eventData).getChangedFile());
-                    this.sendingQueue.putEventInQueue(new ProcessProductUpdateEvent(rawFileRows));
+                    //TODO Should this support batching?
+                    for (String[] row : rawFileRows) {
+                        this.sendingQueue.putEventInQueue(new RawUpdateRecord(row));
+                    }
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }

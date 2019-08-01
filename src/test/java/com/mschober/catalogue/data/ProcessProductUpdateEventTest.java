@@ -17,9 +17,8 @@ public class ProcessProductUpdateEventTest {
         expectedRows.add(new String [] {"80000001", "Kimchi-flavored white rice", "00000567", "00000000", "00000000", "00000000", "00000000", "00000000", "NNNNNNNNN", "18oz"});
         expectedRows.add(new String [] {"14963801", "Generic Soda 12-pack",       "00000000", "00000549", "00001300", "00000000", "00000002", "00000000", "NNNNYNNNN", "12x12oz"});
         ProcessProductUpdateEvent processProductUpdateEvent = new ProcessProductUpdateEvent(expectedRows);
-        Iterator iterator = processProductUpdateEvent.iterator();
-        iterator.next();
-        UpdateRecord secondRow = (UpdateRecord) iterator.next();
+
+        UpdateRecord secondRow = processProductUpdateEvent.get(1);
 
         assertEquals(secondRow.getProductDescription(), "Generic Soda 12-pack");
         assertEquals(secondRow.getPromotionalSingularPrice(), new BigInteger("00000549"));

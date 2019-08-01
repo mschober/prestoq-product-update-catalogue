@@ -1,6 +1,7 @@
 package com.mschober.catalogue.data;
 
 import java.math.BigInteger;
+import java.util.List;
 
 public class RawUpdateRecord implements UpdateRecord {
     private final String productId;
@@ -13,6 +14,11 @@ public class RawUpdateRecord implements UpdateRecord {
     private final BigInteger promotionalForX;
     private final String flags;
     private final String productSize;
+
+    @Override
+    public String getEventContext() {
+        return this.toString();
+    }
 
     @Override
     public String toString() {
