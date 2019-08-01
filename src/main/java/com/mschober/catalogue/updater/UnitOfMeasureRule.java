@@ -9,7 +9,7 @@ public class UnitOfMeasureRule implements UpdateRule {
     @Override
     public void applyRule(SaveRecord saveRecord) {
         if (saveRecord.getFlags().charAt(PER_WEIGHT_INDEX) == 'Y') {
-            System.out.println("applying unit of measure rule");
+            System.out.println("applying unit of measure rule" + saveRecord.getProductId());
         }
     }
 

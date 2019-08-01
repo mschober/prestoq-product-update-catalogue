@@ -7,7 +7,7 @@ public class SplitPricingRule implements UpdateRule {
     public void applyRule(SaveRecord saveRecord) {
         //TODO will this create issues with very large values?
         if (saveRecord.getRegularSingularPrice().intValue() == 0) {
-            System.out.println("applying split pricing rule");
+            System.out.println("applying split pricing rule" + saveRecord.getProductId());
         }
     }
 

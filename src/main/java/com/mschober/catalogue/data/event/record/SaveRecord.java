@@ -64,7 +64,7 @@ public class SaveRecord implements ProductRecord {
 
     @Override
     public String getEventContext() {
-        return this.productRecord.toString();
+            return this.productRecord.toString();
     }
 
     @Override
