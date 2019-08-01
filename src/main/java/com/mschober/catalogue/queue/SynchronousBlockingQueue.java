@@ -1,8 +1,7 @@
 package com.mschober.catalogue.queue;
 
-import com.mschober.catalogue.data.ProductEvent;
+import com.mschober.catalogue.data.event.ProductEvent;
 
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.SynchronousQueue;
 
 public class SynchronousBlockingQueue implements EventProcessingQueue {

@@ -1,4 +1,4 @@
-package com.mschober.catalogue.data;
+package com.mschober.catalogue.data.event;
 
 import java.util.List;
 

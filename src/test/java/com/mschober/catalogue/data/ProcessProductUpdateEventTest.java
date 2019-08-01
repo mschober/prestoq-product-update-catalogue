@@ -1,10 +1,11 @@
 package com.mschober.catalogue.data;
 
+import com.mschober.catalogue.data.event.ProcessProductUpdateEvent;
+import com.mschober.catalogue.data.event.record.UpdateRecord;
 import org.junit.Test;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import static org.junit.Assert.*;

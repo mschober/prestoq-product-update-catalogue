@@ -1,7 +1,7 @@
 package com.mschober.catalogue.updater;
 
-import com.mschober.catalogue.data.ProductEvent;
-import com.mschober.catalogue.data.SaveProductUpdateEvent;
+import com.mschober.catalogue.data.event.ProductEvent;
+import com.mschober.catalogue.data.event.SaveProductUpdateEvent;
 import com.mschober.catalogue.queue.EventProcessingQueue;
 import com.mschober.catalogue.queue.EventProcessor;
 

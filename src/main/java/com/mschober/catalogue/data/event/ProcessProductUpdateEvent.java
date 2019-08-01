@@ -1,4 +1,7 @@
-package com.mschober.catalogue.data;
+package com.mschober.catalogue.data.event;
+
+import com.mschober.catalogue.data.event.record.RawUpdateRecord;
+import com.mschober.catalogue.data.event.record.UpdateRecord;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,5 +1,7 @@
 package com.mschober.catalogue.data;
 
+import com.mschober.catalogue.data.event.record.RawUpdateRecord;
+import com.mschober.catalogue.data.event.record.UpdateRecord;
 import org.junit.Test;
 
 import java.math.BigInteger;

@@ -1,10 +1,9 @@
 package com.mschober.catalogue.receiver.file.fixedwidth;
 
 
-import com.mschober.catalogue.data.FileProductUpdateEvent;
-import com.mschober.catalogue.data.ProcessProductUpdateEvent;
-import com.mschober.catalogue.data.ProductEvent;
-import com.mschober.catalogue.data.RawUpdateRecord;
+import com.mschober.catalogue.data.event.FileProductUpdateEvent;
+import com.mschober.catalogue.data.event.ProductEvent;
+import com.mschober.catalogue.data.event.record.RawUpdateRecord;
 import com.mschober.catalogue.queue.EventProcessingQueue;
 import com.mschober.catalogue.queue.EventProcessor;
 import com.mschober.catalogue.receiver.DirectoryWatcher;

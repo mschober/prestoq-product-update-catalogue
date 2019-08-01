@@ -1,4 +1,6 @@
-package com.mschober.catalogue.data;
+package com.mschober.catalogue.data.event.record;
+
+import com.mschober.catalogue.data.event.ProductEvent;
 
 import java.math.BigInteger;
 

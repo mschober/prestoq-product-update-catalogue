@@ -1,6 +1,6 @@
 package com.mschober.catalogue.persistence;
 
-import com.mschober.catalogue.data.ProductEvent;
+import com.mschober.catalogue.data.event.ProductEvent;
 import com.mschober.catalogue.queue.EventProcessingQueue;
 import com.mschober.catalogue.queue.EventProcessor;
 

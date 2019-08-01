@@ -1,5 +1,6 @@
 package com.mschober.catalogue.data;
 
+import com.mschober.catalogue.data.event.FileProductUpdateEvent;
 import org.junit.Test;
 
 import java.io.File;

@@ -1,6 +1,6 @@
-package com.mschober.catalogue.data;
+package com.mschober.catalogue.data.event;
 
-import java.util.List;
+import com.mschober.catalogue.data.event.ProductEvent;
 
 public class SaveProductUpdateEvent implements ProductEvent {
     private final String eventContext;

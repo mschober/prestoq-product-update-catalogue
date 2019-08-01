@@ -1,7 +1,6 @@
-package com.mschober.catalogue.data;
+package com.mschober.catalogue.data.event.record;
 
 import java.math.BigInteger;
-import java.util.List;
 
 public class RawUpdateRecord implements UpdateRecord {
     private final String productId;

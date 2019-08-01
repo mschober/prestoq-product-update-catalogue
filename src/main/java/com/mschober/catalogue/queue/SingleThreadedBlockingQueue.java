@@ -1,6 +1,6 @@
 package com.mschober.catalogue.queue;
 
-import com.mschober.catalogue.data.ProductEvent;
+import com.mschober.catalogue.data.event.ProductEvent;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
