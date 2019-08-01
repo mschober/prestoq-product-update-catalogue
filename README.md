@@ -16,9 +16,9 @@
 `mkdir /tmp/productchanges`sh
 
 ## How it works
-> When files land in the change directory they will be automatically pickedup on a 2 second polling mechanism.
-> Multiple file changes in a single change interval will all be picked up.
-> Raw rows in the file will be fed as individual events through each of the services in the parent runner.
-> Each row follows the fixed with format specified in the spec doc.
-> The final events have a prefix of: Save Event Data.
+* When files land in the change directory they will be automatically pickedup on a 2 second polling mechanism.
+* Multiple file changes in a single change interval will all be picked up.
+* Raw rows in the file will be fed as individual events through each of the services in the parent runner.
+* Each row follows the fixed with format specified in the spec doc.
+* The final events have a prefix of: Save Event Data.
 
