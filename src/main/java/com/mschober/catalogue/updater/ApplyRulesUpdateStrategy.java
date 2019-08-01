@@ -39,7 +39,7 @@ public class ApplyRulesUpdateStrategy implements ProductUpdateStrategy {
            this.queue = updateProductsQueue;
            this.sendingQueue = productQueue;
            this.rules = new IndependentRuleSet();
-           this.rules.add(new SplitPricingRule());
+           this.rules.add(new RegularPricingRule());
            this.rules.add(new TaxRateRule());
            this.rules.add(new UnitOfMeasureRule());
            this.rules.add(new PromotionalPricingRule());

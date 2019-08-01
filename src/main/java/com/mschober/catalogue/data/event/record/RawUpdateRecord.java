@@ -1,5 +1,6 @@
 package com.mschober.catalogue.data.event.record;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public class RawUpdateRecord implements ProductRecord {
@@ -15,6 +16,10 @@ public class RawUpdateRecord implements ProductRecord {
     private final String productSize;
     private Double taxRate;
     private String unitOfMeasure = "Each";
+    private String promotionalDisplayPrice;
+    private BigDecimal promotionalCalculatorPrice;
+    private String regularDisplayPrice;
+    private BigDecimal regularCalculatorPrice;
 
     @Override
     public String getEventContext() {
@@ -36,6 +41,10 @@ public class RawUpdateRecord implements ProductRecord {
                 ", productSize='" + productSize + '\'' +
                 ", taxRate=" + taxRate +
                 ", unitOfMeasure='" + unitOfMeasure + '\'' +
+                ", promotionalDisplayPrice='" + promotionalDisplayPrice + '\'' +
+                ", promotionalCalculatorPrice=" + promotionalCalculatorPrice +
+                ", regularDisplayPrice='" + regularDisplayPrice + '\'' +
+                ", regularCalculatorPrice=" + regularCalculatorPrice +
                 '}';
     }
 
@@ -111,5 +120,25 @@ public class RawUpdateRecord implements ProductRecord {
     @Override
     public void setUnitOfMeasure(String pound) {
         this.unitOfMeasure = pound;
+    }
+
+    @Override
+    public void setPromotionalDisplayPrice(String calculatePromotionalDisplayPrice) {
+        this.promotionalDisplayPrice = calculatePromotionalDisplayPrice;
+    }
+
+    @Override
+    public void setPromotionalCalculatorPrice(BigDecimal calculatePromotionalCalculatorPrice) {
+        this.promotionalCalculatorPrice = calculatePromotionalCalculatorPrice;
+    }
+
+    @Override
+    public void setRegularDisplayPrice(String calculateDisplayPrice) {
+        this.regularDisplayPrice = calculateDisplayPrice;
+    }
+
+    @Override
+    public void setRegularCalculatorPrice(BigDecimal calculateCalculatorPrice) {
+        this.regularCalculatorPrice = calculateCalculatorPrice;
     }
 }

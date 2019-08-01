@@ -2,6 +2,7 @@ package com.mschober.catalogue.data.event.record;
 
 import com.mschober.catalogue.data.event.ProductEvent;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public class SaveRecord implements ProductRecord {
@@ -70,6 +71,26 @@ public class SaveRecord implements ProductRecord {
     @Override
     public void setUnitOfMeasure(String pound) {
         this.productRecord.setUnitOfMeasure(pound);
+    }
+
+    @Override
+    public void setPromotionalDisplayPrice(String calculatePromotionalDisplayPrice) {
+        this.productRecord.setPromotionalDisplayPrice(calculatePromotionalDisplayPrice);
+    }
+
+    @Override
+    public void setPromotionalCalculatorPrice(BigDecimal calculatePromotionalCalculatorPrice) {
+        this.productRecord.setPromotionalCalculatorPrice(calculatePromotionalCalculatorPrice);
+    }
+
+    @Override
+    public void setRegularDisplayPrice(String calculateDisplayPrice) {
+        this.productRecord.setRegularDisplayPrice(calculateDisplayPrice);
+    }
+
+    @Override
+    public void setRegularCalculatorPrice(BigDecimal calculateCalculatorPrice) {
+        this.productRecord.setRegularCalculatorPrice(calculateCalculatorPrice);
     }
 
     @Override

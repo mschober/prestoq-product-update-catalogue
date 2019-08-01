@@ -2,6 +2,7 @@ package com.mschober.catalogue.data.event.record;
 
 import com.mschober.catalogue.data.event.ProductEvent;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public interface ProductRecord extends ProductEvent {
@@ -29,4 +30,12 @@ public interface ProductRecord extends ProductEvent {
     void setTaxRate(double v);
 
     void setUnitOfMeasure(String pound);
+
+    void setPromotionalDisplayPrice(String calculatePromotionalDisplayPrice);
+
+    void setPromotionalCalculatorPrice(BigDecimal calculatePromotionalCalculatorPrice);
+
+    void setRegularDisplayPrice(String calculateDisplayPrice);
+
+    void setRegularCalculatorPrice(BigDecimal calculateCalculatorPrice);
 }
