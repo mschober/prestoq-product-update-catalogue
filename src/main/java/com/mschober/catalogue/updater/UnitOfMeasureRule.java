@@ -2,16 +2,23 @@ package com.mschober.catalogue.updater;
 
 import com.mschober.catalogue.data.event.record.SaveRecord;
 
-public class UnitOfMeasureRule implements UpdateRule {
+public class UnitOfMeasureRule extends FlagUpdateRule {
 
     public static final int PER_WEIGHT_INDEX = 2;
 
     @Override
-    public void applyRule(SaveRecord saveRecord) {
-        if (saveRecord.getFlags().charAt(PER_WEIGHT_INDEX) == 'Y') {
-            System.out.println("applying unit of measure rule " + saveRecord.getProductId());
-            saveRecord.setUnitOfMeasure("Pound");
-        }
+    int flagIndex() {
+        return PER_WEIGHT_INDEX;
+    }
+
+    @Override
+    void setValue(SaveRecord record) {
+        record.setUnitOfMeasure("Pound");
+    }
+
+    @Override
+    void printMessage(String productId) {
+        System.out.println("applying unit of measure rule " + productId);
     }
 
     @Override

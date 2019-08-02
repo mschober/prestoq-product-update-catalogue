@@ -2,20 +2,27 @@ package com.mschober.catalogue.updater;
 
 import com.mschober.catalogue.data.event.record.SaveRecord;
 
-public class TaxRateRule implements UpdateRule {
+public class TaxRateRule extends FlagUpdateRule {
 
     public static final int TAXABLE_FLAG = 4;
 
     @Override
-    public void applyRule(SaveRecord saveRecord) {
-        if (saveRecord.getFlags().charAt(TAXABLE_FLAG) == 'Y') {
-            System.out.println("applying tax rate rule " + saveRecord.getProductId());
-            saveRecord.setTaxRate(.07775);
-        }
+    public String toString() {
+        return "TaxRateRule{}";
     }
 
     @Override
-    public String toString() {
-        return "TaxRateRule{}";
+    int flagIndex() {
+        return TAXABLE_FLAG;
+    }
+
+    @Override
+    void setValue(SaveRecord record) {
+        record.setTaxRate(.07775);
+    }
+
+    @Override
+    void printMessage(String productId) {
+        System.out.println("applying tax rate rule " + productId);
     }
 }
